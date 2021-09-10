@@ -54,6 +54,10 @@ class RestaurantControllerTest {
 	
 	@Test
 	void testGetRestaurants() throws Exception {
+		
+		int array[] = { 1, 2, 4};
+		
+		
 		String uri = STARTING_URI + "/restaurant";
 		List<Review> reviews = Arrays.asList(
 				new Review(1,"I love this movie", 4.2, new User(), new Restaurant()),
