@@ -45,7 +45,7 @@ public class Review implements Serializable{
 	
 	
 	public Review() {
-		super();
+		this(-1,"N/A",0.0,new User(), new Restaurant());
 	}
 
 	

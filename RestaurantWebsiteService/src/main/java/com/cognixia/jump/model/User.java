@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import java.util.List;
+import java.util.Arrays;
 
 //@Table(name="USER")
 @Entity
@@ -46,7 +47,8 @@ public class User implements Serializable{
 	//List<Restaurant> favorites;
 	
 	public User() {
-		super();
+		
+		this(-1,"N/A","N/A",false, Arrays.asList(new Review()));
 	}
 
 	

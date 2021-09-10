@@ -1,6 +1,7 @@
 package com.cognixia.jump.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -75,7 +76,7 @@ public Restaurant(Integer id, String restaurantName, String restaurantAddress, S
 	}
 	
 	public Restaurant() {
-		super();
+		this(-1,"N/A","N/A","N/A",0.0,Arrays.asList(new Review()));
 	}
 	
 	
