@@ -26,7 +26,7 @@ public class UserController {
 	@Autowired
 	UserService service;
 
-	@CrossOrigin(origins= "http://localhost:3000")
+	@CrossOrigin(origins= "http://localhost:8080")
 	@GetMapping("/user")
 	public ResponseEntity<List<User>> getAllUsers() {
 		return new ResponseEntity<>(service.findAllUsers(),HttpStatus.OK);

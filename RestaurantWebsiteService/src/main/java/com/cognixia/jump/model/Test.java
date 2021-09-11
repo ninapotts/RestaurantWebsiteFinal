@@ -7,8 +7,7 @@ public class Test {
 	
 	public static void main (String [] args) {
 		
-		int arrayInt[] = {0, 1, 2};
-		System.out.println("hi");
+		Restaurant d = new Restaurant("chick", "123 road", "this is a description", 2.0);
 	}
 	
 	

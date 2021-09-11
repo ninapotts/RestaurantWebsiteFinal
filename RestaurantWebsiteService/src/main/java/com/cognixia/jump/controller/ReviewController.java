@@ -26,7 +26,7 @@ public class ReviewController {
 	@Autowired
 	ReviewService service;
 
-	@CrossOrigin(origins= "http://localhost:3000")
+	@CrossOrigin(origins= "http://localhost:8080")
 	@GetMapping("/review")
 	public ResponseEntity<List<Review>> getAllReviews() {
 		return new ResponseEntity<>(service.findAllReviews(),HttpStatus.OK);

@@ -1,6 +1,7 @@
 package com.cognixia.jump.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 //@Table(name="REVIEWS")
 @Entity
@@ -32,31 +36,44 @@ public class Review implements Serializable{
 	Double rating;
 	
 	
+
+	
+	@JsonManagedReference
 	@ManyToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	User user;
 	
+	@JsonManagedReference
 	@ManyToOne
-	@JoinColumn(name="restaurant_id", referencedColumnName="id")
 	Restaurant restaurant;
+	
+	
+////	@JsonManagedReference
+//	@ManyToOne()
+//	@JoinColumn(name = "user_id"/*, referencedColumnName = "id"*/)
+//	User user;
+//	
+////	@JsonManagedReference
+//	@ManyToOne()
+//	@JoinColumn(name="restaurant_id"/*, referencedColumnName="id"*/)
+//	Restaurant restaurant;
 	
 //	@Column(name="USER_ID")
 //	Integer userId;
 	
 	
 	public Review() {
-		super();
+		this(-1,"N/A",0.0);
 	}
 
 	
 
-	public Review(Integer id, String reviewContent, Double rating, User user, Restaurant restaurant) {
+	public Review(Integer id, String reviewContent, Double rating) {
 	super();
 	this.id = id;
 	this.reviewContent = reviewContent;
 	this.rating = rating;
-	this.user = user;
-	this.restaurant = restaurant;
+//	this.user = user;
+//	this.restaurant = restaurant;
 }
 
 	public String toJson() {

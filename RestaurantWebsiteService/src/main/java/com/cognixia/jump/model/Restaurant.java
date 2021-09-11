@@ -1,6 +1,7 @@
 package com.cognixia.jump.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,9 +10,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 //import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 //@Table(name="RESTAURANTS")
 @Entity
@@ -44,23 +49,33 @@ public class Restaurant implements Serializable{
 	@Column(name = "RATING")
 	private Double restaurantRating;
 	
-	//@Column(name="")
 	
-	@OneToMany(mappedBy="restaurant", cascade = CascadeType.ALL)
-	private List<Review> reviews;
+	
+	@JsonBackReference
+	@OneToMany( cascade = CascadeType.ALL)
+	@JoinColumn(name = "restaurant_id")
+	List<Review> reviews;
+	
+//	//@Column(name="")
+////	@JsonManagedReference
+//	@OneToMany(mappedBy="restaurant", cascade = CascadeType.ALL)
+//	private List<Review> reviews;
 
+	public Restaurant() {
+		this(-1,"N/A","N/A", "N/A" , 0.0, new ArrayList<Review>());
+	}
 	
 	
 	
-public Restaurant(Integer id, String restaurantName, String restaurantAddress, String restaurantDescription,
-			Double restaurantRating, List<Review> reviews) {
-		super();
-		this.id = id;
-		this.restaurantName = restaurantName;
-		this.restaurantAddress = restaurantAddress;
-		this.restaurantDescription = restaurantDescription;
-		this.restaurantRating = restaurantRating;
-		this.reviews = reviews;
+	public Restaurant(Integer id, String restaurantName, String restaurantAddress, String restaurantDescription,
+				Double restaurantRating, List<Review> reviews) {
+			super();
+			this.id = id;
+			this.restaurantName = restaurantName;
+			this.restaurantAddress = restaurantAddress;
+			this.restaurantDescription = restaurantDescription;
+			this.restaurantRating = restaurantRating;
+			this.reviews = reviews;
 	}
 
 	public String toJson() {
@@ -74,10 +89,7 @@ public Restaurant(Integer id, String restaurantName, String restaurantAddress, S
 		"}";
 	}
 	
-	public Restaurant() {
-		super();
-	}
-	
+
 	
 	
 	public Integer getId() {

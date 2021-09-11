@@ -26,7 +26,7 @@ public class RestaurantController {
 	@Autowired
 	RestaurantService service;
 
-	@CrossOrigin(origins= "http://localhost:3000")
+	@CrossOrigin(origins= "http://localhost:8080")
 	@GetMapping("/restaurant")
 	public ResponseEntity<List<Restaurant>> getAllRestaurants() {
 		return new ResponseEntity<>(service.findAllRestaurants(),HttpStatus.OK);
