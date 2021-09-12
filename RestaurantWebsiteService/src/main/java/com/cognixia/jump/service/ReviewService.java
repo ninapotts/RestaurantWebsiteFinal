@@ -39,6 +39,7 @@ public class ReviewService {
 	
 	public Review createReview(Review Review) {
 		Review.setReviewId(-1);
+		
 		Review created = repository.save(Review);
 		return created;
 	}

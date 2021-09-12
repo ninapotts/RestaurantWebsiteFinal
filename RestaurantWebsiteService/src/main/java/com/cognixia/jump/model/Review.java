@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -31,16 +32,16 @@ public class Review implements Serializable{
 	
 	@Column(name="REVIEWCONTENT")
 	String reviewContent;
-	
+	 
 	@Column(name="RATING")
 	Double rating;
 	
 	
 
-	
 	@JsonManagedReference
 	@ManyToOne
 	User user;
+	
 	
 	@JsonManagedReference
 	@ManyToOne
@@ -85,6 +86,17 @@ public class Review implements Serializable{
 				", \"restaurant\" : \"" + restaurant + "\"" +
 		"}";
 	}
+
+
+//	public Review(Integer id, String reviewContent, Double rating, User user, Restaurant restaurant) {
+//	super();
+//	this.id = id;
+//	this.reviewContent = reviewContent;
+//	this.rating = rating;
+//	this.user = user;
+//	this.restaurant = restaurant;
+//}
+
 
 
 	public Integer getId() {

@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -38,10 +39,10 @@ public class User implements Serializable{
 	@Column(name="PASSWORD")
 	String password;
 	
-	@Column(name="IS_ADMIN")
+	@Column(name="ISADMIN")
 	Boolean isAdmin;
 	
-	
+	//@Transient
 	@JsonBackReference
 	@OneToMany( cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
@@ -59,27 +60,35 @@ public class User implements Serializable{
 	
 	//List<Restaurant> favorites;
 	
+
 	public User() {
-		this(-1,"N/A","N/A", false , new ArrayList<Review>());
+		this(-1,"N/A","N/A", false );
 	}
 
 	
 	
 
 
-	public User(Integer id, String userName, String password, Boolean isAdmin, List<Review> reviews) {
-		super();
-		this.id = id;
-		this.userName = userName;
-		this.password = password;
-		this.isAdmin = isAdmin;
-		this.reviews = reviews;
-	}
+
 	
+	public User(Integer id, String userName, String password, Boolean isAdmin) {
+	super();
+	this.id = id;
+	this.userName = userName;
+	this.password = password;
+	this.isAdmin = isAdmin;
+}
+
+
+
+
+
+
+
 	public String toJson() {
 		
 		return "{\"id\" : " + id
-				+ ", \"username\" : \"" + userName + "\""
+				+ ", \"userName\" : \"" + userName + "\""
 				+ ", \"password\" : \"" + password + "\"" 
 				+ ", \"isAdmin\" : \"" + isAdmin + "\"" +
 				", \"reviews\" : \"" + reviews + "\"" +

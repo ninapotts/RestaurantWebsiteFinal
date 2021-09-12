@@ -50,6 +50,7 @@ public class UserController {
 	@CrossOrigin(origins= "http://localhost:3000")
 	@PostMapping("/user")
 	public ResponseEntity<User> createUser(@RequestBody User user){
+		
 		return new ResponseEntity<>(service.createUser(user), HttpStatus.CREATED);
 
 	}
