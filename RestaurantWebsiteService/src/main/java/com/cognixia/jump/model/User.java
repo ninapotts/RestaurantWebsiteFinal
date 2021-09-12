@@ -26,18 +26,30 @@ public class User implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	public enum ROLE{
+		ROLE_USER, ROlE_ADMIN
+	}
+
 	
 	@Id//Pk
 	//@Column(name="USER_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer id;
+	private Long id;
 	
 	@Column(name="USERNAME")
-	String userName;
+	private String userName;
 	
 	@Column(name="PASSWORD")
-	String password;
-	
+	private String password;
+
+
+	@Enumerated(EnumType.STRING)
+	@Column(nullabel = false)
+	private ROLE role;
+
+
+	//wrong?
 	@Column(name="IS_ADMIN")
 	Boolean isAdmin;
 	
