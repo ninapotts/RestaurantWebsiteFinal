@@ -109,51 +109,6 @@ public class User implements Serializable{
 	}
 
 
-	public String getUserName() {
-		return userName;
-	}
-
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-
-	public String getPassword() {
-		return password;
-	}
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
-	public List<Review> getReviews() {
-		return reviews;
-	}
-
-
-	public void setReviews(List<Review> reviews) {
-		this.reviews = reviews;
-	}
-
-
-//	public List<Restaurant> getFavorites() {
-//		return favorites;
-//	}
-//
-//
-//	public void setFavorites(List<Restaurant> favorites) {
-//		this.favorites = favorites;
-//	}
-
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", password=" + password + ", reviews=" + reviews
-				+  "]";
-	}
 
 
 
@@ -167,9 +122,53 @@ public class User implements Serializable{
 
 
 
+
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+
+
+
+
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+
+
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
 
 
 
@@ -183,9 +182,29 @@ public class User implements Serializable{
 
 
 
+
+
 	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+
+
+
+
+
+
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+
+
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
 	
 	
 	
