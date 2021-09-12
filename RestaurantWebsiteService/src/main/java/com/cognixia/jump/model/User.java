@@ -47,7 +47,7 @@ public class User implements Serializable{
 	@JoinColumn(name = "user_id")
 	List<Review> reviews;
 
-	
+	int myArray[] = new int[4];
 	
 	
 	
@@ -60,20 +60,20 @@ public class User implements Serializable{
 	//List<Restaurant> favorites;
 	
 	public User() {
-		this(-1,"N/A","N/A", false , new ArrayList<Review>());
+		this(-1,"N/A","N/A", false /*, new ArrayList<Review>()*/);
 	}
 
 	
 	
 
 
-	public User(Integer id, String userName, String password, Boolean isAdmin, List<Review> reviews) {
+	public User(Integer id, String userName, String password, Boolean isAdmin/*, List<Review> reviews*/) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
 		this.isAdmin = isAdmin;
-		this.reviews = reviews;
+//		this.reviews = reviews;
 	}
 	
 	public String toJson() {
@@ -88,16 +88,6 @@ public class User implements Serializable{
 
 
 
-
-
-	public Integer getUserId() {
-		return id;
-	}
-
-
-	public void setUserId(Integer id) {
-		this.id = id;
-	}
 
 
 	public String getUserName() {
@@ -129,15 +119,6 @@ public class User implements Serializable{
 		this.reviews = reviews;
 	}
 
-
-//	public List<Restaurant> getFavorites() {
-//		return favorites;
-//	}
-//
-//
-//	public void setFavorites(List<Restaurant> favorites) {
-//		this.favorites = favorites;
-//	}
 
 
 	@Override

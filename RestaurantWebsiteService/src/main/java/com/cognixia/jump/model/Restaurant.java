@@ -54,7 +54,7 @@ public class Restaurant implements Serializable{
 	@JsonBackReference
 	@OneToMany( cascade = CascadeType.ALL)
 	@JoinColumn(name = "restaurant_id")
-	List<Review> reviews;
+	List<Review> reviews; 
 	
 //	//@Column(name="")
 ////	@JsonManagedReference
@@ -62,20 +62,20 @@ public class Restaurant implements Serializable{
 //	private List<Review> reviews;
 
 	public Restaurant() {
-		this(-1,"N/A","N/A", "N/A" , 0.0, new ArrayList<Review>());
+		this(-1,"N/A","N/A", "N/A" , 0.0/*, new ArrayList<Review>()*/);
 	}
 	
 	
 	
 	public Restaurant(Integer id, String restaurantName, String restaurantAddress, String restaurantDescription,
-				Double restaurantRating, List<Review> reviews) {
+				Double restaurantRating/*, List<Review> reviews*/) {
 			super();
 			this.id = id;
 			this.restaurantName = restaurantName;
 			this.restaurantAddress = restaurantAddress;
 			this.restaurantDescription = restaurantDescription;
 			this.restaurantRating = restaurantRating;
-			this.reviews = reviews;
+//			this.reviews = reviews;
 	}
 
 	public String toJson() {
@@ -84,8 +84,8 @@ public class Restaurant implements Serializable{
 				+ ", \"restaurantName\" : \"" + restaurantName + "\""
 				+ ", \"restaurantAddress\" : \"" + restaurantAddress + "\"" 
 				+ ", \"restaurantDescription\" : \"" + restaurantDescription + "\"" +
-				", \"restaurantRating\" : \"" + restaurantRating + "\"" +
-				", \"reviews\" : \"" + reviews + "\"" +
+				", \"restaurantRating\" : \"" + restaurantRating + "\"" +/*
+				", \"reviews\" : \"" + reviews + "\"" +*/
 		"}";
 	}
 	
@@ -120,24 +120,6 @@ public class Restaurant implements Serializable{
 		return restaurantDescription;
 	}
 
-	public Integer getRestaurantId() {
-		return id;
-	}
-
-
-	public void setRestaurantId(Integer id) {
-		this.id = id;
-	}
-
-
-//	public List<User> getUsers() {
-//		return users;
-//	}
-//
-//
-//	public void setUsers(List<User> users) {
-//		this.users = users;
-//	}
 
 
 	public void setRestaurantDescription(String restaurantDescription) {

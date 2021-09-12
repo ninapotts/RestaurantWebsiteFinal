@@ -38,28 +38,15 @@ public class Review implements Serializable{
 	
 
 	
-	@JsonManagedReference
+//	@JsonManagedReference
 	@ManyToOne
 	User user;
 	
-	@JsonManagedReference
+//	@JsonManagedReference
 	@ManyToOne
 	Restaurant restaurant;
 	
-	
-////	@JsonManagedReference
-//	@ManyToOne()
-//	@JoinColumn(name = "user_id"/*, referencedColumnName = "id"*/)
-//	User user;
-//	
-////	@JsonManagedReference
-//	@ManyToOne()
-//	@JoinColumn(name="restaurant_id"/*, referencedColumnName="id"*/)
-//	Restaurant restaurant;
-	
-//	@Column(name="USER_ID")
-//	Integer userId;
-	
+
 	
 	public Review() {
 		this(-1,"N/A",0.0);
@@ -91,8 +78,8 @@ public class Review implements Serializable{
 		return id;
 	}
 
-	public void setReviewId(Integer reviewId) {
-		this.id = reviewId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getReviewContent() {

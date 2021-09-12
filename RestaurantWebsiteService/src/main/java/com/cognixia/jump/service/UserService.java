@@ -36,7 +36,7 @@ public class UserService {
 	}
 	
 	public User createUser(User user) {
-		user.setUserId(-1);
+		user.setId(-1);
 		User created = repository.save(user);
 		return created;
 	}
