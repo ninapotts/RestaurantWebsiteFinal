@@ -11,11 +11,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Override
+    //temp will be using database
     protected void configure(AuthenicationManagerBuilder auth) throws Exception{
         auth.inMemoryAuthentication()
                 .withUser("user1")
-                .passwrod("pasword1")
-                .rolles("USER");
+                .passwrod("{noop}pasword1")
+                .roles("USER");
 
         auth.userDetailsService(userDetailsService);
     }
@@ -30,13 +31,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.srf().disable()
                 .authorizeResquests()
                 .antMatchers()
-                /*
+                /* needs to change for our models
                 .antMatchers("/api/admin").hasAnyRole("ADMIN")
                 .antMatchers("/api/useraccess").hasRole("USER")
                 .antMatchers("/api/all").permitAll()
                 .antMatchers("/error"). permitallo)
                 .antMatchers(HttpMethod.GET, "/hello/*").hasRole("USER")
-                .antMatchers (HttpMethod.GET, "/date/year").hasAuthority("ADMINI');*/
+                .antMatchers (HttpMethod.GET, "/date/year").hasAuthority("ADMIN");*/
+                .antMatchers("/api/useraccess").hasRole("USER","ADMIN")
                 .antMatchers("/**").hasRole("ADMIN")
                 .and().formLogin()
                 .and().httpBasic()
