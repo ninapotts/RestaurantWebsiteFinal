@@ -47,7 +47,7 @@ public class RestaurantController {
 		return new ResponseEntity<>(service.updateRestaurant(id, restaurant), HttpStatus.OK);
 	}
 	
-	@CrossOrigin(origins= "http://localhost:3000")
+	@CrossOrigin(origins= "http://localhost:8080")
 	@PostMapping("/restaurant")
 	public ResponseEntity<Restaurant> createRestaurant(@RequestBody Restaurant restaurant){
 		return new ResponseEntity<>(service.createRestaurant(restaurant), HttpStatus.CREATED);

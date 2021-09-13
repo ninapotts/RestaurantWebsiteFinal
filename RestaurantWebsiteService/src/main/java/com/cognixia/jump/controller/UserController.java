@@ -26,22 +26,24 @@ public class UserController {
 	@Autowired
 	UserService service;
 
-	@CrossOrigin(origins= "http://localhost:8080")
+	@CrossOrigin(origins= "http://localhost:3000")
 	@GetMapping("/user")
 	public ResponseEntity<List<User>> getAllUsers() {
 		return new ResponseEntity<>(service.findAllUsers(),HttpStatus.OK);
 	}
-	
+	@CrossOrigin(origins= "http://localhost:3000")
 	@GetMapping("/user/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable int id) throws ResourceNotFoundException {
 		return new ResponseEntity<>(service.findUserById(id),HttpStatus.OK);
 	}
 	
+	@CrossOrigin(origins= "http://localhost:3000")
 	@DeleteMapping("/user/{id}")
 	public ResponseEntity<User> deleteUserById(@PathVariable int id) throws ResourceNotFoundException {
 		return new ResponseEntity<>(service.deleteUserById(id),HttpStatus.OK);
 	}
 	
+	@CrossOrigin(origins= "http://localhost:3000")
 	@PutMapping("/user/{id}")
 	public ResponseEntity<User> updateUserById(@PathVariable int id, @RequestBody User user) throws ResourceNotFoundException{
 		return new ResponseEntity<>(service.updateUser(id, user), HttpStatus.OK);

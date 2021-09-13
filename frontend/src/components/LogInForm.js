@@ -11,16 +11,16 @@ const LogInForm = (props) => {
 
         //add new user to db
 
-        // const user = { userName: userName, password: password }
+        const user = { userName: userName, password: password, is_admin : false}
 
-        // fetch("http://localhost:7060/user", {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }, body: JSON.stringify(user)
-        // }).then(response => response.json()).then(data => { console.log('Success: ', user) }).catch(error => {
-        //     console.log('Error: ', error);
-        // });
+        fetch("http://localhost:7060/api/user", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }, body: JSON.stringify(user)
+        }).then(response => response.json()).then(data => { console.log('Success: ', user) }).catch(error => {
+            console.log('Error: ', error);
+        });
 
         console.log(props.location)
         console.log(props.location.setSignedIn)
