@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cognixia.jump.exception.ResourceNotFoundException;
-import com.cognixia.jump.model.User;
+import com.cognixia.jump.model.UserModel;
 import com.cognixia.jump.repository.UserRepository;
 
 @Service
@@ -15,12 +15,12 @@ public class UserService {
 	@Autowired
 	UserRepository repository;
 	
-	public List<User> findAllUsers(){
+	public List<UserModel> findAllUsers(){
 		return repository.findAll();
 	}
 	
-	public User findUserById(int id) throws ResourceNotFoundException {
-		Optional<User> found = repository.findById(id);
+	public UserModel findUserById(int id) throws ResourceNotFoundException {
+		Optional<UserModel> found = repository.findById(id);
 		
 		if(found.isEmpty()) {
 			throw new ResourceNotFoundException("User with id " + id + "  not found.");
@@ -29,21 +29,21 @@ public class UserService {
 		return found.get();	
 	}
 	
-	public User deleteUserById(int id) throws ResourceNotFoundException {
-		User deleted = findUserById(id);
+	public UserModel deleteUserById(int id) throws ResourceNotFoundException {
+		UserModel deleted = findUserById(id);
 		repository.deleteById(id);
 		return deleted;
 	}
 	
-	public User createUser(User user) {
+	public UserModel createUser(UserModel user) {
 		user.setId(-1);
-		User created = repository.save(user);
+		UserModel created = repository.save(user);
 		return created;
 	}
 	
-	public User updateUser(int id, User user) throws ResourceNotFoundException {
+	public UserModel updateUser(int id, UserModel user) throws ResourceNotFoundException {
 		findUserById(id);
-		User updated = repository.save(user);
+		UserModel updated = repository.save(user);
 		return updated;
 	}
 }

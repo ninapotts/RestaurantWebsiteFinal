@@ -33,7 +33,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.Restaurant;
 import com.cognixia.jump.model.Review;
-import com.cognixia.jump.model.User;
+import com.cognixia.jump.model.UserModel;
 import com.cognixia.jump.service.RestaurantService;
 
 @ExtendWith(SpringExtension.class)

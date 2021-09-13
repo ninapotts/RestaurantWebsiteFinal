@@ -36,7 +36,6 @@ public class RestaurantService {
 	} 
 	
 	public Restaurant createRestaurant(Restaurant restaurant) {
-//		restaurant.setRestaurantId(-1);
 		restaurant.setId(-1);
 		Restaurant created = repository.save(restaurant);
 		return created;

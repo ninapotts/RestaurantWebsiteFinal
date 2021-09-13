@@ -33,7 +33,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.Restaurant;
 import com.cognixia.jump.model.Review;
-import com.cognixia.jump.model.User;
+import com.cognixia.jump.model.UserModel;
 import com.cognixia.jump.service.UserService;
 
 @ExtendWith(SpringExtension.class)
@@ -58,10 +58,10 @@ class UserControllerTest {
 				new Review(1,"I love this movie", 4.2/*, new User(), new Restaurant()*/),
 				new Review(2,"I love this movie so much", 5.0/*, new User(), new Restaurant()*/),
 				new Review());
-		List<User> users = Arrays.asList(
-				new User(1,"user1", "password", true/*, reviews*/),
-				new User(2,"user2", "password", true/*, reviews*/),
-				new User());
+		List<UserModel> users = Arrays.asList(
+				new UserModel(1,"user1", "password", UserModel.Role.USER/*, reviews*/),
+				new UserModel(2,"user2", "password", UserModel.Role.USER/*, reviews*/),
+				new UserModel());
 		
 		when(service.findAllUsers()).thenReturn(users);
 		
@@ -73,17 +73,17 @@ class UserControllerTest {
 			.andExpect( jsonPath("$[0].id").value(users.get(0).getId()) )
 			.andExpect( jsonPath("$[0].userName").value(users.get(0).getUserName()) )
 			.andExpect( jsonPath("$[0].password").value(users.get(0).getPassword()) )
-			.andExpect( jsonPath("$[0].isAdmin").value(users.get(0).getIsAdmin()) )
+			.andExpect( jsonPath("$[0].isAdmin").value(users.get(0).getRole()) )
 			//.andExpect( jsonPath("$[0].reviews").value(users.get(0).getReviews()) )
 			.andExpect( jsonPath("$[1].id").value(users.get(1).getId()) )
 			.andExpect( jsonPath("$[1].userName").value(users.get(1).getUserName()) )
 			.andExpect( jsonPath("$[1].password").value(users.get(1).getPassword()) )
-			.andExpect( jsonPath("$[1].isAdmin").value(users.get(1).getIsAdmin()) )
+			.andExpect( jsonPath("$[1].isAdmin").value(users.get(1).getRole()) )
 			//.andExpect( jsonPath("$[1].reviews").value(users.get(1).getReviews()) )
 			.andExpect( jsonPath("$[2].id").value(users.get(2).getId()) )
 			.andExpect( jsonPath("$[2].userName").value(users.get(2).getUserName()) )
 			.andExpect( jsonPath("$[2].password").value(users.get(2).getPassword()) )
-			.andExpect( jsonPath("$[2].isAdmin").value(users.get(2).getIsAdmin()) )
+			.andExpect( jsonPath("$[2].isAdmin").value(users.get(2).getRole()) )
 			//.andExpect( jsonPath("$[2].reviews").value(users.get(2).getReviews()) )
 			;
 	}
@@ -96,7 +96,7 @@ class UserControllerTest {
 				new Review(2,"I love this movie so much", 5.0/*, new User(), new Restaurant()*/),
 				new Review());
 		Integer id = 1;
-		User user = new User(id,"user1", "password", true/*, reviews*/);
+		UserModel user = new UserModel(id,"user1", "password", UserModel.Role.USER/*, reviews*/);
 		
 		String uri = STARTING_URI + "/user/{id}";
 		
@@ -108,7 +108,7 @@ class UserControllerTest {
 			.andExpect( jsonPath("$.id").value(user.getId()) )
 			.andExpect( jsonPath("$.userName").value(user.getUserName()) )
 			.andExpect( jsonPath("$.password").value(user.getPassword()) )
-			.andExpect( jsonPath("$.isAdmin").value(user.getIsAdmin()) )
+			.andExpect( jsonPath("$.isAdmin").value(user.getRole()) )
 			//.andExpect( jsonPath("$.reviews").value(user.getReviews()) )
 			;
 		
@@ -141,11 +141,11 @@ class UserControllerTest {
 				new Review(1,"I love this movie", 4.2/*, new User(), new Restaurant()*/),
 				new Review(2,"I love this movie so much", 5.0/*, new User(), new Restaurant()*/),
 				new Review());
-		User user = new User(1,"user1", "password", true/*, reviews*/);
+		UserModel user = new UserModel(1,"user1", "password", UserModel.Role.USER/*, reviews*/);
 		
 		String userJson = user.toJson();
 		
-		when( service.createUser(any(User.class)) ).thenReturn(user);
+		when( service.createUser(any(UserModel.class)) ).thenReturn(user);
 		
 		mockMvc.perform(post(uri)
 				.content( userJson )
@@ -155,11 +155,11 @@ class UserControllerTest {
 				.andExpect( jsonPath("$.id").value(user.getId()) )
 				.andExpect( jsonPath("$.userName").value(user.getUserName()) )
 				.andExpect( jsonPath("$.password").value(user.getPassword()) )
-				.andExpect( jsonPath("$.isAdmin").value(user.getIsAdmin()) )
+				.andExpect( jsonPath("$.isAdmin").value(user.getRole()) )
 				//.andExpect( jsonPath("$.reviews").value(user.getReviews()) )
 				;
 		
-		verify( service, times(1) ).createUser(any(User.class));
+		verify( service, times(1) ).createUser(any(UserModel.class));
 		verifyNoMoreInteractions(service);
 	}
 	
@@ -172,12 +172,12 @@ class UserControllerTest {
 				new Review(2,"I love this movie so much", 5.0/*, new User(), new Restaurant()*/),
 				new Review());
 		Integer id = 1;
-		User user = new User(id,"user1", "password", true/*, reviews*/);
+		UserModel user = new UserModel(id,"user1", "password", UserModel.Role.USER/*, reviews*/);
 		String userJson = user.toJson();
 		
 		String uri = STARTING_URI + "/user/{id}";
 		
-		when ( service.updateUser(any(int.class), any(User.class)) ).thenReturn(user);
+		when ( service.updateUser(any(int.class), any(UserModel.class)) ).thenReturn(user);
 		
 		mockMvc.perform(put(uri, id)
 				.content( userJson )
@@ -194,7 +194,7 @@ class UserControllerTest {
 				new Review(2,"I love this movie so much", 5.0/*, new User(), new Restaurant()*/),
 				new Review());
 		Integer id = 1;
-		User user = new User(id,"user1", "password", true/*, reviews*/);
+		UserModel user = new UserModel(id,"user1", "password", UserModel.Role.USER/*, reviews*/);
 		
 		String uri = STARTING_URI + "/user/{id}";
 		
@@ -206,7 +206,7 @@ class UserControllerTest {
 			.andExpect( jsonPath("$.id").value(user.getId()) )
 			.andExpect( jsonPath("$.userName").value(user.getUserName()) )
 			.andExpect( jsonPath("$.password").value(user.getPassword()) )
-			.andExpect( jsonPath("$.isAdmin").value(user.getIsAdmin()) )
+			.andExpect( jsonPath("$.isAdmin").value(user.getRole()) )
 			//.andExpect( jsonPath("$.reviews").value(user.getReviews()) )
 			;
 		

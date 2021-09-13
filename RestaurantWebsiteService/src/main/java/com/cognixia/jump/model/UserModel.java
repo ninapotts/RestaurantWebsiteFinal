@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,11 +22,12 @@ import java.util.List;
 
 //@Table(name="USER")
 @Entity
-public class User implements Serializable{
+public class UserModel implements Serializable{
 
-	/**
-	 * 
-	 */
+	public enum Role {
+		ROLE_USER, ROLE_ADMIN, ADMIN, USER
+	}
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id//Pk
@@ -38,16 +41,26 @@ public class User implements Serializable{
 	@Column(name="PASSWORD")
 	String password;
 	
-	@Column(name="IS_ADMIN")
-	Boolean isAdmin;
 	
+//	@Enumerated(EnumType.STRING)
+//	@Column(nullable = false)
+//	private ROLE role;
+	
+	@Column(columnDefinition = "boolean default true")
+	private boolean enabled;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Role role;
+//	@Column(name="IS_ADMIN")
+//	Boolean role;
+//	
 	
 	@JsonBackReference
 	@OneToMany( cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	List<Review> reviews;
 
-	int myArray[] = new int[4];
 	
 	
 	
@@ -59,20 +72,20 @@ public class User implements Serializable{
 	
 	//List<Restaurant> favorites;
 	
-	public User() {
-		this(-1,"N/A","N/A", false /*, new ArrayList<Review>()*/);
+	public UserModel() {
+		this(-1,"N/A","N/A", Role.ROLE_USER /*, new ArrayList<Review>()*/);
 	}
 
 	
 	
 
 
-	public User(Integer id, String userName, String password, Boolean isAdmin/*, List<Review> reviews*/) {
+	public UserModel(Integer id, String userName, String password, Role role/*, List<Review> reviews*/) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
-		this.isAdmin = isAdmin;
+		this.role = role;
 //		this.reviews = reviews;
 	}
 	
@@ -81,7 +94,7 @@ public class User implements Serializable{
 		return "{\"id\" : " + id
 				+ ", \"username\" : \"" + userName + "\""
 				+ ", \"password\" : \"" + password + "\"" 
-				+ ", \"isAdmin\" : \"" + isAdmin + "\"" +
+				+ ", \"role\" : \"" + role + "\"" +
 				", \"reviews\" : \"" + reviews + "\"" +
 		"}";
 	}
@@ -146,20 +159,13 @@ public class User implements Serializable{
 
 
 
-
-	public Boolean getIsAdmin() {
-		return isAdmin;
+	public Role getRole() {
+		return role;
 	}
 
-
-
-
-
-	public void setIsAdmin(Boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setRole(Role role) {
+		this.role = role;
 	}
-	
-	
 	
 	
 	

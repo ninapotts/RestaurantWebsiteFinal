@@ -40,7 +40,7 @@ public class Review implements Serializable{
 	
 //	@JsonManagedReference
 	@ManyToOne
-	User user;
+	UserModel user;
 	
 //	@JsonManagedReference
 	@ManyToOne
@@ -98,11 +98,11 @@ public class Review implements Serializable{
 		this.rating = rating;
 	}
 
-	public User getUser() {
+	public UserModel getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserModel user) {
 		this.user = user;
 	}
 
