@@ -54,8 +54,8 @@ class ReviewControllerTest {
 	void testGetReviews() throws Exception {
 		String uri = STARTING_URI + "/review";
 		List<Review> reviews = Arrays.asList(
-				new Review(1,"I love this movie", 4.2, new User(), new Restaurant()),
-				new Review(2,"I love this movie so much", 5.0, new User(), new Restaurant()),
+				new Review(1,"I love this movie", 4.2/*, new User(), new Restaurant()*/),
+				new Review(2,"I love this movie so much", 5.0/*, new User(), new Restaurant()*/),
 				new Review());
 		
 		when(service.findAllReviews()).thenReturn(reviews);
@@ -68,25 +68,25 @@ class ReviewControllerTest {
 			.andExpect( jsonPath("$[0].id").value(reviews.get(0).getId()) )
 			.andExpect( jsonPath("$[0].reviewContent").value(reviews.get(0).getReviewContent()) )
 			.andExpect( jsonPath("$[0].rating").value(reviews.get(0).getRating()) )
-			.andExpect( jsonPath("$[0].user").value(reviews.get(0).getUser()) )
-			.andExpect( jsonPath("$[0].restaurant").value(reviews.get(0).getRestaurant()) )
+			//.andExpect( jsonPath("$[0].user").value(reviews.get(0).getUser()) )
+			//.andExpect( jsonPath("$[0].restaurant").value(reviews.get(0).getRestaurant()) )
 			.andExpect( jsonPath("$[1].id").value(reviews.get(1).getId()) )
 			.andExpect( jsonPath("$[1].reviewContent").value(reviews.get(1).getReviewContent()) )
 			.andExpect( jsonPath("$[1].rating").value(reviews.get(1).getRating()) )
-			.andExpect( jsonPath("$[1].user").value(reviews.get(1).getUser()) )
-			.andExpect( jsonPath("$[1].restaurant").value(reviews.get(1).getRestaurant()) )
+			//.andExpect( jsonPath("$[1].user").value(reviews.get(1).getUser()) )
+			//.andExpect( jsonPath("$[1].restaurant").value(reviews.get(1).getRestaurant()) )
 			.andExpect( jsonPath("$[2].id").value(reviews.get(2).getId()) )
 			.andExpect( jsonPath("$[2].reviewContent").value(reviews.get(2).getReviewContent()) )
-			.andExpect( jsonPath("$[2].rating").value(reviews.get(2).getRating()) )
-			.andExpect( jsonPath("$[2].user").value(reviews.get(2).getUser()) )
-			.andExpect( jsonPath("$[2].restaurant").value(reviews.get(2).getRestaurant()) );
+			.andExpect( jsonPath("$[2].rating").value(reviews.get(2).getRating()) );
+			//.andExpect( jsonPath("$[2].user").value(reviews.get(2).getUser()) )
+			//.andExpect( jsonPath("$[2].restaurant").value(reviews.get(2).getRestaurant()) );
 	}
 
 	@Test
 	void testFindReview() throws Exception {
 		
 		Integer id = 1;
-		Review review = new Review(id,"I love this movie", 4.2, new User(), new Restaurant());
+		Review review = new Review(id,"I love this movie", 4.2/*, new User(), new Restaurant()*/);
 		
 		String uri = STARTING_URI + "/review/{id}";
 		
@@ -98,8 +98,9 @@ class ReviewControllerTest {
 			.andExpect( jsonPath("$.id").value(review.getId()) )
 			.andExpect( jsonPath("$.reviewContent").value(review.getReviewContent()) )
 			.andExpect( jsonPath("$.rating").value(review.getRating()) )
-			.andExpect( jsonPath("$.user").value(review.getUser()) )
-			.andExpect( jsonPath("$.restaurant").value(review.getRestaurant()) );
+			//.andExpect( jsonPath("$.user").value(review.getUser()) )
+			//.andExpect( jsonPath("$.restaurant").value(review.getRestaurant()) )
+			;
 		
 		verify( service, times(1) ).findReviewById(any(int.class));
 		verifyNoMoreInteractions(service);
@@ -127,7 +128,7 @@ class ReviewControllerTest {
 		
 		String uri = STARTING_URI + "/review";
 		Integer id = 1;
-		Review review = new Review(id,"I love this movie", 4.2, new User(), new Restaurant());
+		Review review = new Review(id,"I love this movie", 4.2/*, new User(), new Restaurant()*/);
 		
 		
 		String reviewJson = review.toJson();
@@ -142,8 +143,10 @@ class ReviewControllerTest {
 				.andExpect( jsonPath("$.id").value(review.getId()) )
 				.andExpect( jsonPath("$.reviewContent").value(review.getReviewContent()) )
 				.andExpect( jsonPath("$.rating").value(review.getRating()) )
-				.andExpect( jsonPath("$.user").value(review.getUser()) )
-				.andExpect( jsonPath("$.restaurant").value(review.getRestaurant()) );
+				//.andExpect( jsonPath("$.user").value(review.getUser()) )
+				//.andExpect( jsonPath("$.restaurant").value(review.getRestaurant()) 
+				//)
+					;
 		
 		verify( service, times(1) ).createReview(any(Review.class));
 		verifyNoMoreInteractions(service);
@@ -154,7 +157,7 @@ class ReviewControllerTest {
 	@Test
 	void testUpdate() throws Exception {
 		Integer id = 1;
-		Review review = new Review(id,"I love this movie", 4.2, new User(), new Restaurant());
+		Review review = new Review(id,"I love this movie", 4.2/*, new User(), new Restaurant()*/);
 		
 		String reviewJson = review.toJson();
 		
@@ -173,7 +176,7 @@ class ReviewControllerTest {
 	@Test
 	void testDelete() throws Exception {
 		Integer id = 1;
-		Review review = new Review(id,"I love this movie", 4.2, new User(), new Restaurant());
+		Review review = new Review(id,"I love this movie", 4.2/*, new User(), new Restaurant()*/);
 		
 		
 		String uri = STARTING_URI + "/review/{id}";
@@ -186,8 +189,9 @@ class ReviewControllerTest {
 			.andExpect( jsonPath("$.id").value(review.getId()) )
 			.andExpect( jsonPath("$.reviewContent").value(review.getReviewContent()) )
 			.andExpect( jsonPath("$.rating").value(review.getRating()) )
-			.andExpect( jsonPath("$.user").value(review.getUser()) )
-			.andExpect( jsonPath("$.restaurant").value(review.getRestaurant()) );
+			//.andExpect( jsonPath("$.user").value(review.getUser()) )
+			//.andExpect( jsonPath("$.restaurant").value(review.getRestaurant()) )
+			;
 		
 		verify( service, times(1) ).deleteReviewById(any(int.class));
 		verifyNoMoreInteractions(service);

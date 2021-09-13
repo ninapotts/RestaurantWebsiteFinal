@@ -55,12 +55,12 @@ class UserControllerTest {
 	void testGetUsers() throws Exception {
 		String uri = STARTING_URI + "/user";
 		List<Review> reviews = Arrays.asList(
-				new Review(1,"I love this movie", 4.2, new User(), new Restaurant()),
-				new Review(2,"I love this movie so much", 5.0, new User(), new Restaurant()),
+				new Review(1,"I love this movie", 4.2/*, new User(), new Restaurant()*/),
+				new Review(2,"I love this movie so much", 5.0/*, new User(), new Restaurant()*/),
 				new Review());
 		List<User> users = Arrays.asList(
-				new User(1,"user1", "password", true, reviews),
-				new User(2,"user2", "password", true, reviews),
+				new User(1,"user1", "password", true/*, reviews*/),
+				new User(2,"user2", "password", true/*, reviews*/),
 				new User());
 		
 		when(service.findAllUsers()).thenReturn(users);
@@ -70,32 +70,33 @@ class UserControllerTest {
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 			.andExpect( jsonPath("$.length()").value(users.size()))
-			.andExpect( jsonPath("$[0].id").value(users.get(0).getUserId()) )
+			.andExpect( jsonPath("$[0].id").value(users.get(0).getId()) )
 			.andExpect( jsonPath("$[0].userName").value(users.get(0).getUserName()) )
 			.andExpect( jsonPath("$[0].password").value(users.get(0).getPassword()) )
 			.andExpect( jsonPath("$[0].isAdmin").value(users.get(0).getIsAdmin()) )
-			.andExpect( jsonPath("$[0].reviews").value(users.get(0).getReviews()) )
-			.andExpect( jsonPath("$[1].id").value(users.get(1).getUserId()) )
+			//.andExpect( jsonPath("$[0].reviews").value(users.get(0).getReviews()) )
+			.andExpect( jsonPath("$[1].id").value(users.get(1).getId()) )
 			.andExpect( jsonPath("$[1].userName").value(users.get(1).getUserName()) )
 			.andExpect( jsonPath("$[1].password").value(users.get(1).getPassword()) )
 			.andExpect( jsonPath("$[1].isAdmin").value(users.get(1).getIsAdmin()) )
-			.andExpect( jsonPath("$[1].reviews").value(users.get(1).getReviews()) )
-			.andExpect( jsonPath("$[2].id").value(users.get(2).getUserId()) )
+			//.andExpect( jsonPath("$[1].reviews").value(users.get(1).getReviews()) )
+			.andExpect( jsonPath("$[2].id").value(users.get(2).getId()) )
 			.andExpect( jsonPath("$[2].userName").value(users.get(2).getUserName()) )
 			.andExpect( jsonPath("$[2].password").value(users.get(2).getPassword()) )
 			.andExpect( jsonPath("$[2].isAdmin").value(users.get(2).getIsAdmin()) )
-			.andExpect( jsonPath("$[2].reviews").value(users.get(2).getReviews()) );
+			//.andExpect( jsonPath("$[2].reviews").value(users.get(2).getReviews()) )
+			;
 	}
 
 	@Test
 	void testFindUser() throws Exception {
 		
 		List<Review> reviews = Arrays.asList(
-				new Review(1,"I love this movie", 4.2, new User(), new Restaurant()),
-				new Review(2,"I love this movie so much", 5.0, new User(), new Restaurant()),
+				new Review(1,"I love this movie", 4.2/*, new User(), new Restaurant()*/),
+				new Review(2,"I love this movie so much", 5.0/*, new User(), new Restaurant()*/),
 				new Review());
 		Integer id = 1;
-		User user = new User(id,"user1", "password", true, reviews);
+		User user = new User(id,"user1", "password", true/*, reviews*/);
 		
 		String uri = STARTING_URI + "/user/{id}";
 		
@@ -104,11 +105,12 @@ class UserControllerTest {
 		mockMvc.perform(get(uri, id))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-			.andExpect( jsonPath("$.id").value(user.getUserId()) )
+			.andExpect( jsonPath("$.id").value(user.getId()) )
 			.andExpect( jsonPath("$.userName").value(user.getUserName()) )
 			.andExpect( jsonPath("$.password").value(user.getPassword()) )
 			.andExpect( jsonPath("$.isAdmin").value(user.getIsAdmin()) )
-			.andExpect( jsonPath("$.reviews").value(user.getReviews()) );
+			//.andExpect( jsonPath("$.reviews").value(user.getReviews()) )
+			;
 		
 		verify( service, times(1) ).findUserById(any(int.class));
 		verifyNoMoreInteractions(service);
@@ -136,10 +138,10 @@ class UserControllerTest {
 		
 		String uri = STARTING_URI + "/user";
 		List<Review> reviews = Arrays.asList(
-				new Review(1,"I love this movie", 4.2, new User(), new Restaurant()),
-				new Review(2,"I love this movie so much", 5.0, new User(), new Restaurant()),
+				new Review(1,"I love this movie", 4.2/*, new User(), new Restaurant()*/),
+				new Review(2,"I love this movie so much", 5.0/*, new User(), new Restaurant()*/),
 				new Review());
-		User user = new User(1,"user1", "password", true, reviews);
+		User user = new User(1,"user1", "password", true/*, reviews*/);
 		
 		String userJson = user.toJson();
 		
@@ -150,11 +152,12 @@ class UserControllerTest {
 				.contentType(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isCreated())
-				.andExpect( jsonPath("$.id").value(user.getUserId()) )
+				.andExpect( jsonPath("$.id").value(user.getId()) )
 				.andExpect( jsonPath("$.userName").value(user.getUserName()) )
 				.andExpect( jsonPath("$.password").value(user.getPassword()) )
 				.andExpect( jsonPath("$.isAdmin").value(user.getIsAdmin()) )
-				.andExpect( jsonPath("$.reviews").value(user.getReviews()) );
+				//.andExpect( jsonPath("$.reviews").value(user.getReviews()) )
+				;
 		
 		verify( service, times(1) ).createUser(any(User.class));
 		verifyNoMoreInteractions(service);
@@ -165,11 +168,11 @@ class UserControllerTest {
 	@Test
 	void testUpdate() throws Exception {
 		List<Review> reviews = Arrays.asList(
-				new Review(1,"I love this movie", 4.2, new User(), new Restaurant()),
-				new Review(2,"I love this movie so much", 5.0, new User(), new Restaurant()),
+				new Review(1,"I love this movie", 4.2/*, new User(), new Restaurant()*/),
+				new Review(2,"I love this movie so much", 5.0/*, new User(), new Restaurant()*/),
 				new Review());
 		Integer id = 1;
-		User user = new User(id,"user1", "password", true, reviews);
+		User user = new User(id,"user1", "password", true/*, reviews*/);
 		String userJson = user.toJson();
 		
 		String uri = STARTING_URI + "/user/{id}";
@@ -187,11 +190,11 @@ class UserControllerTest {
 	@Test
 	void testDelete() throws Exception {
 		List<Review> reviews = Arrays.asList(
-				new Review(1,"I love this movie", 4.2, new User(), new Restaurant()),
-				new Review(2,"I love this movie so much", 5.0, new User(), new Restaurant()),
+				new Review(1,"I love this movie", 4.2/*, new User(), new Restaurant()*/),
+				new Review(2,"I love this movie so much", 5.0/*, new User(), new Restaurant()*/),
 				new Review());
 		Integer id = 1;
-		User user = new User(id,"user1", "password", true, reviews);
+		User user = new User(id,"user1", "password", true/*, reviews*/);
 		
 		String uri = STARTING_URI + "/user/{id}";
 		
@@ -200,11 +203,12 @@ class UserControllerTest {
 		mockMvc.perform(delete(uri, id))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-			.andExpect( jsonPath("$.id").value(user.getUserId()) )
+			.andExpect( jsonPath("$.id").value(user.getId()) )
 			.andExpect( jsonPath("$.userName").value(user.getUserName()) )
 			.andExpect( jsonPath("$.password").value(user.getPassword()) )
 			.andExpect( jsonPath("$.isAdmin").value(user.getIsAdmin()) )
-			.andExpect( jsonPath("$.reviews").value(user.getReviews()) );
+			//.andExpect( jsonPath("$.reviews").value(user.getReviews()) )
+			;
 		
 		verify( service, times(1) ).deleteUserById(any(int.class));
 		verifyNoMoreInteractions(service);
