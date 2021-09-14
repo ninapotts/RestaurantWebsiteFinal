@@ -1,66 +1,79 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 
 const Restaurant = (props) => {
-    const userType = "user";
+    const [reviews, setReviews] = useState([])
+
+    const userType = props.location.query.userType;
     const isLoggedIn = true;
 
-    // const restaurant = {
-    //     "name": "McDonald's",
-    //     "Description": "Shittiest food money can buy",
-    //     "Rating": 0.05,
-    //     "Address": "123 S Lame Avenue City, State 12345",
-    //     "reviews": [
-    //         {
-    //             "user": "genius1",
-    //             "comment": "this will not fuel my genius brain",
-    //             "rating": 0
-    //         },
-    //         {
-    //             "user": "superVillian007",
-    //             "comment": "the only thing i can bring down with this food in my stomach is my plumbing",
-    //             "rating": 0.1
-    //         }
-    //     ]
-    // }
+
+    useEffect(() => {
+        fetch(`http://localhost:7060/api/review/restaurant/${props.location.query.r.id}`, {
+            headers: {
+                Authorization: "Bearer " + props.jwt
+            }
+        }).then(response => response.json()).then(data => { console.log(data); setReviews(data) })
+    }, []);
+
+
     console.log("in restaurant form")
-    console.log(props.location.state)
-    const reviewInfo = props.location.state.reviews.map(r => {
-        return (<li> <h5>Review by {r.user}</h5> <p><em> Comment:</em> {r.comment}</p> <p> <em> Rating:</em> {r.rating}</p> </li>)
+    console.log(props)
+    const reviewInfo = reviews.map(r => {
+        return (<li> <h5>Review by {r.user}</h5> <p><em> Comment:</em> {r.reviewContent}</p> <p> <em> Rating:</em> {r.rating}</p> </li>)
     })
+
+    const isSignedIn = props.location.query.isSignedIn;
 
     if (userType === "user") {
         return (
             <div>
-                <h1>{props.location.state.name}</h1>
-                <h4>Description: </h4><p>{props.location.state.Description}</p>
-                <h4>Address: </h4> <p>{props.location.state.Address}</p>
-                <h4>Rating: </h4> <p>{props.location.state.Rating}</p>
+
+                {isSignedIn ? <><Link to="/LoggedIn" className="btn btn-primary">Home</Link><Link to="/" className="btn btn-primary">Logout</Link></> : <Link to="/" className="btn btn-primary">Home</Link>}
+
+                {/* {isSignedIn ? <Link to="/" params={{ isSignedIn: false }} className="btn btn-primary">Home</Link> : <br />} */}
+
+
+                <h1>{props.location.query.r.restaurantName}</h1>
+                <h4>Description: </h4><p>{props.location.query.r.restaurantDescription}</p>
+                <h4>Address: </h4> <p>{props.location.query.r.restaurantAddress}</p>
+                <h4>Rating: </h4> <p>{props.location.query.r.restaurantRating}</p>
                 <br />
                 <h4>Reviews</h4>
                 <ul>
+                    {/* <li> <h5>Review </h5> <p><em> Comment:</em> {reviews.reviewContent}</p> <p> <em> Rating:</em> {reviews.rating}</p> </li> */}
                     {reviewInfo}
 
                 </ul>
                 <br />
 
-                {isLoggedIn ? <button className="btn btn-primary">Leave a Review!</button> : <br />}
+                {isSignedIn ? <Link to="/reviewForm" params={{ restaurantId: props.location.query.r.id }} className="btn btn-primary">Leave a Review!</Link> : <br />}
+
 
             </div>
         )
     } if (userType === "admin") {
         return (
             <div>
-                <h1>{props.location.state.name} </h1>
-                <h4>Description: </h4><p>{props.location.state.Description} </p>
-                <h4>Address: </h4> <p>{props.location.state.Address} </p>
-                <h4>Rating: </h4> <p>{props.location.state.Rating}</p>
+
+                <Link to="/" className="btn btn-primary">Logout</Link>
+
+                <h1>{props.location.query.r.restaurantName}</h1>
+                <h4>Description: </h4><p>{props.location.query.r.restaurantDescription}</p>
+                <h4>Address: </h4> <p>{props.location.query.r.restaurantAddress}</p>
+                <h4>Rating: </h4> <p>{props.location.query.r.restaurantRating}</p>
+                <br />
+                <h4>Reviews</h4>
                 <ul>
-                    {reviewInfo}
+                    <li> <h5>Review </h5> <p><em> Comment:</em> {reviews.reviewContent}</p> <p> <em> Rating:</em> {reviews.rating}</p> </li>
+
 
                 </ul>
+                <br />
 
                 <button className="btn btn-danger">Edit</button>
-                <button className="btn btn-warning">Delete</button>
+                <Link to={{ pathname: "/editRestaurant", state: { restaurantId: props.location.query.r.id } }} className="btn btn-warning">Edit</Link>
+                <Link to={{ pathname: "/deleteRestaurant", state: { restaurantId: props.location.query.r.id } }} className="btn btn-warning">Delete</Link>
             </div>
         )
     }

@@ -26,7 +26,7 @@ public class RestaurantController {
 	@Autowired
 	RestaurantService service;
 
-	@CrossOrigin(origins= "http://localhost:8080")
+	@CrossOrigin(origins= "http://localhost:3000")
 	@GetMapping("/restaurant")
 	public ResponseEntity<List<Restaurant>> getAllRestaurants() {
 		return new ResponseEntity<>(service.findAllRestaurants(),HttpStatus.OK);
@@ -34,24 +34,33 @@ public class RestaurantController {
 	
 	@GetMapping("/restaurant/{id}")
 	public ResponseEntity<Restaurant> getRestaurantById(@PathVariable int id) throws ResourceNotFoundException {
-		return new ResponseEntity<>(service.findRestaurantById(id),HttpStatus.OK);
+		return new ResponseEntity<>(service.findRestaurantById(id), HttpStatus.OK);
 	}
 	
+	
+	@CrossOrigin(origins= "http://localhost:3000")
 	@DeleteMapping("/restaurant/{id}")
 	public ResponseEntity<Restaurant> deleteRestaurantById(@PathVariable int id) throws ResourceNotFoundException {
-		return new ResponseEntity<>(service.deleteRestaurantById(id),HttpStatus.OK);
+		return new ResponseEntity<>(service.deleteRestaurantById(id), HttpStatus.OK);
 	}
 	
+	@CrossOrigin(origins= "http://localhost:3000")
 	@PutMapping("/restaurant/{id}")
 	public ResponseEntity<Restaurant> updateRestaurantById(@PathVariable int id, @RequestBody Restaurant restaurant) throws ResourceNotFoundException{
 		return new ResponseEntity<>(service.updateRestaurant(id, restaurant), HttpStatus.OK);
 	}
 	
-	@CrossOrigin(origins= "http://localhost:8080")
+	@CrossOrigin(origins= "http://localhost:3000")
 	@PostMapping("/restaurant")
-	public ResponseEntity<Restaurant> createRestaurant(@RequestBody Restaurant restaurant){
+	public ResponseEntity<Restaurant> createRestaurant(@RequestBody Restaurant restaurant) {
 		return new ResponseEntity<>(service.createRestaurant(restaurant), HttpStatus.CREATED);
 
+	}
+	
+	@CrossOrigin(origins="http://localhost:3000")
+	@GetMapping("/restaurant/name/{name}")
+	public ResponseEntity<Restaurant> getRestaurantById(@PathVariable String name) throws ResourceNotFoundException {
+		return new ResponseEntity<>(service.findByRestaurantName(name), HttpStatus.OK);
 	}
 	
 	

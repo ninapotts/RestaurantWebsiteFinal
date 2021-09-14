@@ -21,12 +21,18 @@ public class RestaurantService {
 	
 	public Restaurant findRestaurantById(int id) throws ResourceNotFoundException {
 		Optional<Restaurant> found = repository.findById(id);
-		
-		if(found.isEmpty()) {
+
+		if (found.isEmpty()) {
 			throw new ResourceNotFoundException("Restaurant with id " + id + "  not found.");
 		}
+
+		return found.get();
+	}
+	
+	public Restaurant findByRestaurantName(String restaurantName) {
+		Restaurant found = repository.findByRestaurantName(restaurantName);
+		return found;
 		
-		return found.get();	
 	}
 	
 	public Restaurant deleteRestaurantById(int id) throws ResourceNotFoundException {

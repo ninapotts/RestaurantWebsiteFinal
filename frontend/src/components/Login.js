@@ -1,37 +1,33 @@
 import React, { useState } from 'react'
-import { useHistory } from "react-router-dom";
+import Home from './Home'
+import { useHistory, Redirect, Link } from "react-router-dom";
 
-const LogInForm = (props) => {
-    const [userName, setUsername] = useState('');
+const Login = (props) => {
+
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [jwt, setno] = useState('');
+
+
 
     const history = useHistory();
 
-    const signIn = () => {
 
-        //add new user to db
+    const onSubmit = (event) => {
+        event.preventDefault();
 
-        const user = { userName: userName, password: password, is_admin : false}
+        const user = { username: username, password: password }
 
-        fetch("http://localhost:7060/api/user", {
+        fetch("http://localhost:7060/api/authenticate", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             }, body: JSON.stringify(user)
-        }).then(response => response.json()).then(data => { console.log('Success: ', user) }).catch(error => {
+        }).then(response => response.json()).then(data => { console.log(data); props.setJwt(data.jwt); setno(data.jwt) }).catch(error => {
             console.log('Error: ', error);
         });
 
-        console.log(props.location)
-        console.log(props.location.setSignedIn)
-        props.location.setSignedIn(true);
-
-        history.push({ pathname: '/', state: { isLoggedIn: true } });
-
-    }
-
-    const onSubmit = (event) => {
-        event.preventDefault();
+        history.push({ pathname: '/loggedIn', state: { user: user, isSignedIn: true, jwt: props.jwt } });
     };
 
     return (
@@ -39,14 +35,14 @@ const LogInForm = (props) => {
             <h4>Login Form</h4>
             <form onSubmit={onSubmit}>
                 <div className='mb-3'>
-                    <label htmlFor='userName' className='form-label'>
+                    <label htmlFor='username' className='form-label'>
                         Username
                     </label>
                     <input
                         type='text'
-                        id='userName'
+                        id='username'
                         className='form-control'
-                        value={userName}
+                        value={username}
                         onChange={(event) => {
                             setUsername(event.target.value);
                         }}
@@ -68,10 +64,10 @@ const LogInForm = (props) => {
 
 
 
-                <input type='submit' className='btn btn-primary' onClick={signIn} />
+                <input type='submit' className='btn btn-primary' />
             </form>
         </div>
     )
 }
 
-export default LogInForm
+export default Login

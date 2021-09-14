@@ -19,10 +19,21 @@ public class ReviewService {
 		return repository.findAll();
 	}
 	
-	
+	public List<Review> findAllByUserId(Integer user_id) {
+		
+		
+		return null;
+		
+	}
+	public List<Review> findAllByRestaurantId(Integer restaurant_id) {
+		List<Review> found = repository.findAllByRestaurantId(restaurant_id);
+		return found;
+		
+	}
 	
 	public Review findReviewById(int id) throws ResourceNotFoundException {
 		Optional<Review> found = repository.findById(id);
+		
 		
 		if(found.isEmpty()) {
 			throw new ResourceNotFoundException("Review with id " + id + "  not found.");

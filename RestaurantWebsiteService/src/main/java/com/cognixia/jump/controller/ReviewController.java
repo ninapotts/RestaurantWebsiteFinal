@@ -26,12 +26,19 @@ public class ReviewController {
 	@Autowired
 	ReviewService service;
 
-	@CrossOrigin(origins= "http://localhost:8080")
+	@CrossOrigin(origins= "http://localhost:3000")
 	@GetMapping("/review")
 	public ResponseEntity<List<Review>> getAllReviews() {
-		return new ResponseEntity<>(service.findAllReviews(),HttpStatus.OK);
+		return new ResponseEntity<>(service.findAllReviews(), HttpStatus.OK);
+	}
+
+	@CrossOrigin(origins= "http://localhost:3000")
+	@GetMapping("/review/restaurant/{id}")
+	public ResponseEntity<List<Review>> getAllByRestaurantId(@PathVariable int id) throws ResourceNotFoundException {
+		return new ResponseEntity<>(service.findAllByRestaurantId(id),HttpStatus.OK);
 	}
 	
+	@CrossOrigin(origins= "http://localhost:3000")
 	@GetMapping("/review/{id}")
 	public ResponseEntity<Review> getReviewById(@PathVariable int id) throws ResourceNotFoundException {
 		return new ResponseEntity<>(service.findReviewById(id),HttpStatus.OK);

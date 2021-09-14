@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom";
 
-const NewRestaurantForm = () => {
+const EditRestaurant = (props) => {
 
     const [rName, setRestaurantName] = useState('');
     const [rDesc, setRestaurantDesc] = useState('');
@@ -20,8 +20,8 @@ const NewRestaurantForm = () => {
 
         const restaurant = { restaurantName: rName, restaurantDescription: rDesc, restaurantAddress: rAddr }
 
-        fetch("http://localhost:7060/api/restaurant", {
-            method: 'POST',
+        fetch(`http://localhost:7060/api/restaurant/${props.location.state.restaurantId}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             }, body: JSON.stringify(restaurant)
@@ -29,7 +29,7 @@ const NewRestaurantForm = () => {
             console.log('Error: ', error);
         });
 
-        history.push({ pathname: '/' });
+        history.push({ pathname: '/', state: { isSignedIn: true, jwt: props.jwt, userType: "admin" } });
     }
 
 
@@ -89,4 +89,4 @@ const NewRestaurantForm = () => {
     )
 }
 
-export default NewRestaurantForm
+export default EditRestaurant
