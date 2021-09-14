@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import Home from './Home'
-import { useHistory, Redirect, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Login = (props) => {
 

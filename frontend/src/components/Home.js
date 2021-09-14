@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Home = (props) => {
     // const loggedIn = props.isLoggedIn;
     const [restaurants, setRestaurants] = useState([]);
     const [searchRestaurant, setSearch] = useState('');
     const [r, setR] = useState({});
-
-    const history = useHistory();
-
-    console.log(props)
 
 
     const search = () => {

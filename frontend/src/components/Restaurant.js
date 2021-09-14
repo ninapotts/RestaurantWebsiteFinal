@@ -5,8 +5,6 @@ const Restaurant = (props) => {
     const [reviews, setReviews] = useState([])
 
     const userType = props.location.query.userType;
-    const isLoggedIn = true;
-
 
     useEffect(() => {
         fetch(`http://localhost:7060/api/review/restaurant/${props.location.query.r.id}`, {
@@ -71,7 +69,7 @@ const Restaurant = (props) => {
                 </ul>
                 <br />
 
-                <button className="btn btn-danger">Edit</button>
+
                 <Link to={{ pathname: "/editRestaurant", state: { restaurantId: props.location.query.r.id } }} className="btn btn-warning">Edit</Link>
                 <Link to={{ pathname: "/deleteRestaurant", state: { restaurantId: props.location.query.r.id } }} className="btn btn-warning">Delete</Link>
             </div>

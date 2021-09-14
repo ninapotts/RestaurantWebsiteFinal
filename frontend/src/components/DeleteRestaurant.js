@@ -3,9 +3,6 @@ import Home from './Home';
 
 export const DeleteRestaurant = (props) => {
 
-
-
-
     useEffect(() => {
         console.log("in delete")
         console.log(props);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from "react-router-dom";
 
 const EditRestaurant = (props) => {
@@ -18,7 +18,7 @@ const EditRestaurant = (props) => {
     const addNewRestaurant = () => {
         //add new restaurant to db with rating = 0 and reviews = []
 
-        const restaurant = { restaurantName: rName, restaurantDescription: rDesc, restaurantAddress: rAddr }
+        const restaurant = { id: props.location.state.restaurantId, restaurantName: rName, restaurantDescription: rDesc, restaurantAddress: rAddr }
 
         fetch(`http://localhost:7060/api/restaurant/${props.location.state.restaurantId}`, {
             method: 'PUT',
