@@ -23,6 +23,10 @@ const Home = (props) => {
         return result
     }
 
+    function refreshPage() {
+        window.location.reload(false);
+    }
+
 
     useEffect(() => {
         fetch("http://localhost:7060/api/restaurant", {
@@ -52,7 +56,7 @@ const Home = (props) => {
         <div>
 
             {props.isSignedIn ? <br /> : <><Link className="btn btn-primary" to="/newUser">Create Account</Link><Link className="btn btn-primary" to="/login">Login</Link></>}
-
+            {refreshPage}
             <div className="input-group">
                 <input type="search" className="form-control rounded" placeholder="Search for a restaurant" aria-label="Search"
                     aria-describedby="search-addon" onChange={(event) => {

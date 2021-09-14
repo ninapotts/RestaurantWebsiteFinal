@@ -26,7 +26,7 @@ function App() {
         <Route path='/restaurant' component={Restaurant} />
         <Route path='/newUser' render={() => <NewUserForm setJwt={setJwt} />} />
         <Route path='/addNewRestaurant' component={NewRestaurantForm} />
-        <Route path='/reviewForm' render={() => <ReviewForm jwt={jwt} />} />
+        <Route path='/reviewForm' component={ReviewForm} />
         <Route path='/deleteRestaurant' component={DeleteRestaurant} />
         <Route path='/editRestaurant' component={EditRestaurant} />
 

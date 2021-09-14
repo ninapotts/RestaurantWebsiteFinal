@@ -5,26 +5,27 @@ const ReviewForm = (props) => {
     const [rating, setRating] = useState('');
     const [reviewContent, setReviewContent] = useState('');
 
-
+    console.log("in review forms")
+    console.log(props)
 
     const history = useHistory();
 
     const onSubmit = (event) => {
         event.preventDefault();
 
-        const review = { reviewContent: reviewContent, rating: rating, restaurant_id: props.restaurantId }
+        const review = { "id": 1, "reviewContent": reviewContent, "rating": parseInt(rating), "restaurant": { "id": props.location.state.restaurantId } }
 
-        fetch("http://localhost:7060/api/review", {
+        fetch("http://localhost:7060/api/review/", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: "Bearer " + props.jwt
+                // Authorization: "Bearer " + props.jwt
             }, body: JSON.stringify(review)
-        }).then(response => response.json()).then(data => { setRating(data.rating); setReviewContent(data.reviewContent); props.setJwt(data.jwt) }).catch(error => {
+        }).then(response => response.json()).catch(error => {
             console.log('Error: ', error);
         });
 
-        history.push({ pathname: '/', state: { jwt: props.jwt } });
+        history.push({ pathname: '/' });
     };
 
 

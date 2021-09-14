@@ -47,7 +47,7 @@ const Restaurant = (props) => {
                 </ul>
                 <br />
 
-                {isSignedIn ? <Link to="/reviewForm" params={{ restaurantId: props.location.query.r.id }} className="btn btn-primary">Leave a Review!</Link> : <br />}
+                {isSignedIn ? <Link to={{ pathname: "/reviewForm", state: { restaurantId: props.location.query.r.id } }} className="btn btn-primary">Leave a Review!</Link> : <br />}
 
 
             </div>
