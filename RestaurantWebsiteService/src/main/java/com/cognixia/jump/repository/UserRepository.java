@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 import com.cognixia.jump.model.UserModel;
 
@@ -16,6 +17,8 @@ public interface UserRepository extends JpaRepository<UserModel, Integer>{
 	
 	/// Must be the same exact signature as your models find user name
 	Optional<UserModel> findByUserName(String Username);
+	
+	UserDetails loadUserByUsername(String username);
 
 }
 

@@ -9,5 +9,5 @@ import com.cognixia.jump.model.Restaurant;
 @Repository
 @EntityScan(basePackages = "com.cognixia.jump.model")
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>{
-	
+	Restaurant findByRestaurantName(String restaurantName);
 }

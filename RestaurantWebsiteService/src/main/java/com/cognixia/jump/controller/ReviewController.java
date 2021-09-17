@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cognixia.jump.exception.ResourceNotFoundException;
+import com.cognixia.jump.model.Restaurant;
 import com.cognixia.jump.model.Review;
 import com.cognixia.jump.service.ReviewService;
 
@@ -28,27 +29,31 @@ public class ReviewController {
 	@Autowired
 	ReviewService service;
 
-	@CrossOrigin(origins= "http://localhost:8080")
+	@CrossOrigin(origins= "http://localhost:3000")
 	@GetMapping("/review")
 	public ResponseEntity<List<Review>> getAllReviews() {
 		return new ResponseEntity<>(service.findAllReviews(),HttpStatus.OK);
 	}
 	
+	@CrossOrigin(origins= "http://localhost:3000")
 	@GetMapping("/review/restaurant/{id}")
 	public ResponseEntity<List<Review>> getAllByRestaurantId(@PathVariable int id) throws ResourceNotFoundException {
 		return new ResponseEntity<>(service.findAllByRestaurantId(id),HttpStatus.OK);
 	}
 	
+	@CrossOrigin(origins= "http://localhost:3000")
 	@GetMapping("/review/user/{id}")
 	public ResponseEntity<List<Review>> getAllByUserId(@PathVariable int id) throws ResourceNotFoundException {
 		return new ResponseEntity<>(service.findAllByUserId(id),HttpStatus.OK);
 	}
 	
+	@CrossOrigin(origins= "http://localhost:3000")
 	@DeleteMapping("/review/{id}")
 	public ResponseEntity<Review> deleteReviewById(@PathVariable int id) throws ResourceNotFoundException {
 		return new ResponseEntity<>(service.deleteReviewById(id),HttpStatus.OK);
 	}
 	
+	@CrossOrigin(origins= "http://localhost:3000")
 	@PutMapping("/review/{id}")
 	public ResponseEntity<Review> updateReviewById(@PathVariable int id, @RequestBody Review review) throws ResourceNotFoundException{
 		return new ResponseEntity<>(service.updateReview(id, review), HttpStatus.OK);
@@ -61,6 +66,7 @@ public class ReviewController {
 
 	}
 	
+
 	
 }
 

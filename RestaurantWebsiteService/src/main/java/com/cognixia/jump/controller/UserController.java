@@ -31,20 +31,34 @@ import com.cognixia.jump.util.JwtUtil;
 @RequestMapping("/api")
 public class UserController {
 
-	// this manager will be what handles the authentication for users
-		@Autowired
-		private AuthenticationManager manager;
-		
-		@Autowired
-		private MyUserDetailsService detailsService;
-		
-		@Autowired
-		private JwtUtil jwtUtil;
-		
-		
-		@Autowired
-		UserService service;
+// this manager will be what handles the authentication for users
+	@Autowired
+	private AuthenticationManager manager;
+	
+	@Autowired
+	private MyUserDetailsService detailsService;
+	
+	@Autowired
+	private JwtUtil jwtUtil;
+	
+	
+	@Autowired
+	UserService service;
+	
+//	@CrossOrigin(origins= "http://localhost:3000")
+//	@GetMapping("/test")
+//	public String homey() {
+//		return " Welcome adadadad";
+//	}
 
+		
+	@CrossOrigin(origins= "http://localhost:3000")
+	@GetMapping("/")
+	public ResponseEntity home() {
+		return new ResponseEntity<>(service.findAllUsers(),HttpStatus.OK);
+	}
+
+		
 	@CrossOrigin(origins= "http://localhost:3000")
 	@GetMapping("/user")
 	public ResponseEntity<List<UserModel>> getAllUsers() {

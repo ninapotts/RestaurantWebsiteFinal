@@ -47,5 +47,11 @@ public class RestaurantService {
 		return updated;
 	}
 	
+	public Restaurant findByRestaurantName(String restaurantName) {
+        Restaurant found = repository.findByRestaurantName(restaurantName);
+        return found;
+
+    }
+	
 	
 }

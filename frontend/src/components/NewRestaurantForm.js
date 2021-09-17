@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from "react-router-dom";
 
 const NewRestaurantForm = () => {
 
@@ -6,12 +7,29 @@ const NewRestaurantForm = () => {
     const [rDesc, setRestaurantDesc] = useState('');
     const [rAddr, setRestaurantAddr] = useState('');
 
+    const history = useHistory();
+
     const onSubmit = (event) => {
         event.preventDefault();
+
+        addNewRestaurant();
     };
 
     const addNewRestaurant = () => {
         //add new restaurant to db with rating = 0 and reviews = []
+
+        const restaurant = { restaurantName: rName, restaurantDescription: rDesc, restaurantAddress: rAddr }
+
+        fetch("http://localhost:7060/api/restaurant", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }, body: JSON.stringify(restaurant)
+        }).then(response => response.json()).catch(error => {
+            console.log('Error: ', error);
+        });
+
+        history.push({ pathname: '/' });
     }
 
 
@@ -65,7 +83,7 @@ const NewRestaurantForm = () => {
                 </div>
 
 
-                <input type='submit' className='btn btn-primary' onClick={addNewRestaurant} />
+                <input type='submit' className='btn btn-primary' />
             </form>
         </div>
     )

@@ -16,15 +16,22 @@ import com.cognixia.jump.repository.UserRepository;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService{
-
+//
 	@Autowired
 	UserRepository userRepo;
+	
+	
+//	@Override
+//	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//	
+//		return new User("foo", "foo", new ArrayList<>());
+//	}
 	
 	// method will be called by Spring to load a user when you need to authenticate/authorize api requests
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
-		//Removing the hardcoded user
+//		
+//		//Removing the hardcoded user
 //		if (username.equals("user1")) {
 //			return new User("user1", "{noop}123", new ArrayList<>());
 //		}
@@ -32,6 +39,7 @@ public class MyUserDetailsService implements UserDetailsService{
 //		
 //		System.out.println("Username Not Found");
 //		throw new UsernameNotFoundException(username);
+//		
 		
 		// Checking the database for a matching username, and returning a 
 		// user data object
